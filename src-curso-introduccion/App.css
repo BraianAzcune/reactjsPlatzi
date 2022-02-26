@@ -1,0 +1,132 @@
+:root {
+  --fondo: #282c34;
+  --texto-no-seleccionado: #6d7f8f;
+  --texto-seleccionado: white;
+}
+
+body {
+  background-color: var(--fondo);
+}
+
+.counter {
+  text-align: center;
+}
+
+.internal_todo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background-color: #525b6b;
+  color: red;
+  user-select: none;
+  width: 20px;
+  height: 20px;
+  overflow: hidden;
+  text-shadow: 1px 1px 2px black;
+}
+.internal_todo:hover {
+  opacity: 0.9;
+  width: 500px;
+  height: 300px;
+  animation: grown 2s;
+}
+
+@keyframes grown {
+  from {
+    width: 20px;
+    height: 20px;
+  }
+  to {
+    width: 500px;
+    height: 300px;
+  }
+}
+
+.app {
+  color: var(--texto-seleccionado);
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.todo_search_container {
+  display: flex;
+  justify-content: center;
+}
+
+.todo_search {
+  background: var(--fondo);
+  padding: 6px 6px;
+  border: none;
+  height: 1.2rem;
+  width: 20rem;
+  outline: none;
+  font-size: 1.1rem;
+  color: var(--texto-no-seleccionado);
+  background-color: lighten(var(--fondo), 3%);
+  border-bottom: 3px solid lightseagreen;
+}
+
+.todo_search:focus {
+  color: var(--texto-seleccionado);
+  animation-name: example;
+  animation-duration: 0.3s;
+}
+
+@keyframes example {
+  from {
+    color: var(--texto-no-seleccionado);
+  }
+  to {
+    color: var(--texto-seleccionado);
+  }
+}
+
+li {
+  margin-top: 1.1rem;
+  margin-bottom: 1.1rem;
+  list-style-type: none;
+  color: #dbe7fa;
+  cursor: pointer;
+  transition: 0.2s;
+}
+li:hover {
+  color: #ffffff;
+  transform: scale(1.01);
+  text-shadow: 1px 1px 2px black;
+}
+section {
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  width: 21rem;
+  overflow-y: auto;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #ebebeb;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: #6d6d6d;
+}
+
+ul {
+  width: 21rem;
+  margin: 0;
+  padding: 10px;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+}
