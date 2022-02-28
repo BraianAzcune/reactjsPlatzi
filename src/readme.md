@@ -78,8 +78,50 @@ la idea seria modificar esto, actualmente TodoList recibe todo eso en su childre
 la idea seria transformar esto, para que tenga propiedades, que dentro tienen una funcion que muestra lo que se debe renderizar.
 
 ```js
+//App/index.js
+<TodoList
+  error={error}
+  loading={loading}
+  searchedTodos={searchedTodos}
+  onError={() => <TodosError />}
+  onLoading={() => <TodosLoading />}
+  onEmpty={() => <EmptyTodos />}
+  render={(todo) => {
+    return (
+      <TodoItem
+        key={todo.text}
+        text={todo.text}
+        completed={todo.completed}
+        onComplete={() => completeTodo(todo.text)}
+        onDelete={() => deleteTodo(todo.text)}
+      />
+    );
+  }}></TodoList>;
 
+// TodoList.js
+function TodoList({
+  error,
+  onError,
+  loading,
+  onLoading,
+  onEmpty,
+  searchedTodos,
+  render,
+}) {
+  return (
+    <section className="TodoList-container">
+      {error && onError()}
+      {loading && onLoading()}
+      {!loading && !searchedTodos.length && onEmpty()}
+      <ul>{searchedTodos.map(render)}</ul>
+    </section>
+  );
+}
 ```
+
+en la version de arriba, ahora TodoList no muestra todo a traves de su propiedad children.
+sino que se le pasan 3 props para la logica de que renderizar.
+y luego unas renderProps que son funciones que dicen que renderizar.
 
 ### links
 
