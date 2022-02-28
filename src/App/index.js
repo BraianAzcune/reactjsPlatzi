@@ -11,10 +11,9 @@ import { Modal } from "../Modal";
 import { TodoHeader } from "../TodoHeader";
 import { TodoCounter } from "../TodoCounter";
 import { TodoSearch } from "../TodoSearch";
-import { useTodos } from './useTodos';
+import { useTodos } from "./useTodos";
 
 function App() {
-
   const {
     error,
     loading,
@@ -27,16 +26,41 @@ function App() {
     completedTodos,
     searchValue,
     setSearchValue,
-    addTodo
+    addTodo,
   } = useTodos();
 
   return (
     <React.Fragment>
       <TodoHeader>
-        <TodoCounter totalTodos={totalTodos} completedTodos={completedTodos}></TodoCounter>
-        <TodoSearch searchValue={searchValue} setSearchValue={setSearchValue}></TodoSearch>
+        <TodoCounter
+          totalTodos={totalTodos}
+          completedTodos={completedTodos}></TodoCounter>
+        <TodoSearch
+          searchValue={searchValue}
+          setSearchValue={setSearchValue}></TodoSearch>
       </TodoHeader>
-      <TodoList>
+      <TodoList
+        error={error}
+        loading={loading}
+        searchedTodos={searchedTodos}
+
+        onError={() => <TodosError />}
+        onLoading={() => <TodosLoading />}
+        onEmpty={() => <EmptyTodos />}
+        render={(todo) => {
+          return (
+            <TodoItem
+              key={todo.text}
+              text={todo.text}
+              completed={todo.completed}
+              onComplete={() => completeTodo(todo.text)}
+              onDelete={() => deleteTodo(todo.text)}
+            />
+          );
+        }}
+
+      ></TodoList>
+      {/* <TodoList>
         {error && <TodosError />}
         {loading && <TodosLoading />}
         {!loading && !searchedTodos.length && <EmptyTodos />}
@@ -50,16 +74,18 @@ function App() {
             onDelete={() => deleteTodo(todo.text)}
           />
         ))}
-      </TodoList>
+      </TodoList> */}
 
-      {!!openModal && (
-        <Modal>
-          <TodoForm addTodo={addTodo} setOpenModal={setOpenModal} />
-        </Modal>
-      )}
+      {
+        !!openModal && (
+          <Modal>
+            <TodoForm addTodo={addTodo} setOpenModal={setOpenModal} />
+          </Modal>
+        )
+      }
 
       <CreateTodoButton setOpenModal={setOpenModal} />
-    </React.Fragment>
+    </React.Fragment >
   );
 }
 
