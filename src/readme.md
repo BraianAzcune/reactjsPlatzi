@@ -46,6 +46,41 @@ por lo que se dice que son compontes de presentacion.
 
 los componentes que creen su propio estado seran los statefull.
 
+la idea seria tener componentes con estado que tengan logica, y luego los componentes finales que renderizan que sean sin estado.
+
+### Render props y render functions
+
+La render props y render function son otra forma para lograr la composicion de componentes, hasta ahora la composicion
+la lograbamos a traves de la prop children.
+
+ejemplo aplicando renderProps, antes teniamos en la App/index.js
+
+```js
+<TodoList>
+  {error && <TodosError />}
+  {loading && <TodosLoading />}
+  {!loading && !searchedTodos.length && <EmptyTodos />}
+
+  {searchedTodos.map((todo) => (
+    <TodoItem
+      key={todo.text}
+      text={todo.text}
+      completed={todo.completed}
+      onComplete={() => completeTodo(todo.text)}
+      onDelete={() => deleteTodo(todo.text)}
+    />
+  ))}
+</TodoList>
+```
+
+la idea seria modificar esto, actualmente TodoList recibe todo eso en su children y solamente lo renderiza.
+
+la idea seria transformar esto, para que tenga propiedades, que dentro tienen una funcion que muestra lo que se debe renderizar.
+
+```js
+
+```
+
 ### links
 
 Principios en los que se basa el desarrollo de React
