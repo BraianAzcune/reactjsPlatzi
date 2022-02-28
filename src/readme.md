@@ -39,6 +39,13 @@ otra pregunta valida, es quien maneja el estado de los componentes ?.
 existe una estrategia llamada 'Maxima cercania a al relevancia'
 que dice que la variable debe estar guardada en el componente que lo use, y si lo usan entre varios, entonces el padre mas cercano a todos.
 
+Ademas existe el concepto de componentes statefull y stateless.
+
+los componentes stateless son aquellos que no tienen estado interno, solamente cambian cuando cambia lo que le pasa su padre.
+por lo que se dice que son compontes de presentacion.
+
+los componentes que creen su propio estado seran los statefull.
+
 ### links
 
 Principios en los que se basa el desarrollo de React
