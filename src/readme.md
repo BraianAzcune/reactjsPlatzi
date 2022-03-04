@@ -123,6 +123,105 @@ en la version de arriba, ahora TodoList no muestra todo a traves de su propiedad
 sino que se le pasan 3 props para la logica de que renderizar.
 y luego unas renderProps que son funciones que dicen que renderizar.
 
+### React.cloneElement y React.Children
+
+nos permite crear un clon de un elemento react, donde el segundo paramentro es un objeto con las propiedades que le queremos pasar.
+De esta forma es posible a la prop children, ponerle otras props.
+pero esto solo funciona si children es un solo elemento.
+
+para eso existe React.Children, que nos permite transformar children en un array, al que luego podemos procesar.
+
+ej:
+
+```js
+const clones = React.Children.toArray(children).map((child) =>
+  React.cloneElement(child, { loading })
+);
+return <header>{clones}</header>;
+```
+
+### High order functions.
+
+Las high order components se basan en las high order function de los lenguajes de paradigma funcional.
+trata de funciones que reciben como argumentos los tipicos y tambien son capaces de aceptar funciones.
+y retornar una funcion como respuesta.
+
+ejemplo sencillo de una funcion de orden superior que recibe un numero y retorna una funcion
+
+```js
+function HighOrderFunction(value) {
+  return function returnFunction(value2) {
+    return value + value2;
+  };
+}
+const functionReturned = HighOrderFunction(10);
+functionReturned(2); //12
+functionReturned(10); //20
+functionReturned(-10); //0
+```
+
+ejemplo de una High Order Function que ademas hace un bind de su variable con la funcion que retorna.
+
+```js
+function HighOrderFunction(initialValue) {
+  let value = initialValue;
+  return function returnFunction(increment) {
+    value += increment;
+    return value;
+  };
+}
+const functionReturned = HighOrderFunction(10);
+functionReturned(2); //12
+functionReturned(2); //14
+const functionReturnedTwo = HighOrderFunction(10);
+functionReturnedTwo(2); //12
+functionReturnedTwo(2); //14
+```
+
+### High Order Component
+
+ahora que entendemos las HOF, los HOC son muy similares, la diferencia es que la funcion que se retorna tiene que ser un componente de React.
+
+ejemplo sencillo:
+
+veamos como funciona sin hoc
+
+```js
+function Main({ nombre }) {
+  return <h1>Hola {nombre}</h1>;
+}
+
+ReactDOM.render(<Main nombre="braian" />, document.getElementById("root"));
+```
+
+ahora lo que haremos es usar HOC para que el Main component sea envuelto y al final diga adios.
+
+```js
+function Main({ nombre }) {
+  return <h1>Hola {nombre}</h1>;
+}
+
+//HOC
+function withAdios(Component) {
+  //las props que le inyectaremos al componente
+  return function (props) {
+    return (
+      <>
+        <Component {...props}></Component>
+        <p>Adios</p>
+      </>
+    );
+  };
+}
+
+const WrappedMain = withAdios(Main);
+
+ReactDOM.render(
+  <WrappedMain nombre="braian" />,
+  document.getElementById("root")
+);
+```
+
 ### links
 
 Principios en los que se basa el desarrollo de React
