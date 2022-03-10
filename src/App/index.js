@@ -28,7 +28,8 @@ function App() {
     searchValue,
     setSearchValue,
     addTodo,
-    localStorageItemName //! esto no es reactivo
+    localStorageItemName, //! esto no es reactivo
+    refrescarTodos,
   } = useTodos();
 
   return (
@@ -86,7 +87,9 @@ function App() {
         )
       }
       <CreateTodoButton setOpenModal={setOpenModal} />
-      <ChangeAlertWithStorageListener storageName={localStorageItemName}></ChangeAlertWithStorageListener>
+      <ChangeAlertWithStorageListener
+        recargarTodos={refrescarTodos}
+        storageName={localStorageItemName}></ChangeAlertWithStorageListener>
     </React.Fragment >
   );
 }

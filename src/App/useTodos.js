@@ -11,6 +11,7 @@ export function useTodos() {
     saveItem: saveTodos,
     loading,
     error,
+    refrescarItem: refrescarTodos,
   } = useLocalStorage(localStorageItemName, []);
   const [searchValue, setSearchValue] = React.useState('');
   const [openModal, setOpenModal] = React.useState(false);
@@ -68,6 +69,7 @@ export function useTodos() {
       openModal,
       setOpenModal,
       localStorageItemName,
+      refrescarTodos
     }
   );
 }

@@ -2,7 +2,7 @@ import React from 'react'
 
 
 export function withStorageListener(WrappedComponent) {
-  return function WrapperComponentWithStorageListener({ storageName }) {
+  return function WrapperComponentWithStorageListener({ storageName, recargarTodos }) {
     const [storageChange, setStorageChange] = React.useState(false);
 
 
@@ -15,6 +15,7 @@ export function withStorageListener(WrappedComponent) {
 
     return (
       <WrappedComponent
+        refresh={recargarTodos}
         show={storageChange}
         toggleShow={setStorageChange}
       >
