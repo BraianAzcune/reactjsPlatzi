@@ -12,6 +12,7 @@ import { TodoHeader } from "../TodoHeader";
 import { TodoCounter } from "../TodoCounter";
 import { TodoSearch } from "../TodoSearch";
 import { useTodos } from "./useTodos";
+import { ChangeAlertWithStorageListener } from '../changeAlert'
 
 function App() {
   const {
@@ -27,6 +28,7 @@ function App() {
     searchValue,
     setSearchValue,
     addTodo,
+    localStorageItemName //! esto no es reactivo
   } = useTodos();
 
   return (
@@ -83,8 +85,8 @@ function App() {
           </Modal>
         )
       }
-
       <CreateTodoButton setOpenModal={setOpenModal} />
+      <ChangeAlertWithStorageListener storageName={localStorageItemName}></ChangeAlertWithStorageListener>
     </React.Fragment >
   );
 }

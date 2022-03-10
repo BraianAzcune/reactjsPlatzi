@@ -4,13 +4,14 @@ import { useLocalStorage } from './useLocalStorage';
 
 
 export function useTodos() {
-
+  // ! esto no es reactivo, es una constante
+  const localStorageItemName = 'TODOS_V1';
   const {
     item: todos,
     saveItem: saveTodos,
     loading,
     error,
-  } = useLocalStorage('TODOS_V1', []);
+  } = useLocalStorage(localStorageItemName, []);
   const [searchValue, setSearchValue] = React.useState('');
   const [openModal, setOpenModal] = React.useState(false);
 
@@ -66,6 +67,7 @@ export function useTodos() {
       deleteTodo,
       openModal,
       setOpenModal,
+      localStorageItemName,
     }
   );
 }

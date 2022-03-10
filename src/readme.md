@@ -222,6 +222,15 @@ ReactDOM.render(
 );
 ```
 
+#### **Ejemplo de HOC**
+
+en el curso se puede ver un ejemplo de HOC para escuchar ante el evento de que cambie el local storage, la situacion seria que si tenemos la app abierta desde varias pestañas entre ellas no hay sincronizacion a menos que el useLocalStorage->useEffect no tenga un array de dependencias, haciendo que se recarge siempre.
+
+Pero como realizar esto es costo, se opta por escuchar el evento de que cambio el localstorage de el objeto window.
+Las HOC en este caso recibe un componente y retorna el componente con 2 props inyectadas, que son show y toggleShow, estas variable estara en true si ocurrio dicho evento. Asi multiples componentes pueden adquirir la habilidad de escuchar el evento del localStorage.
+
+el archivo donde ocurre esto es **HOC_withStorageListener** y el que lo usa es **ChangeAlert/index.js**
+
 ### links
 
 Principios en los que se basa el desarrollo de React
