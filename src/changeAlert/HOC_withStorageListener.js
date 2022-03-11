@@ -5,6 +5,10 @@ export function withStorageListener(WrappedComponent) {
   return function WrapperComponentWithStorageListener({ storageName, recargarTodos }) {
     const [storageChange, setStorageChange] = React.useState(false);
 
+    const refresh = () => {
+      setStorageChange(false);
+      recargarTodos();
+    }
 
     window.addEventListener('storage', (event) => {
       if (event.key === storageName) {
@@ -15,9 +19,8 @@ export function withStorageListener(WrappedComponent) {
 
     return (
       <WrappedComponent
-        refresh={recargarTodos}
+        refresh={refresh}
         show={storageChange}
-        toggleShow={setStorageChange}
       >
       </WrappedComponent>
     )

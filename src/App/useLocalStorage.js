@@ -44,6 +44,7 @@ function useLocalStorage(itemName, initialValue) {
         setError(error);
       }
     }, 3000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // [] significa que solo se ejecuta una vez, cuando se monta el componente y cuando se desmonta se llama a la funcion de saneamiento, en este caso no hay.
 
   const saveItem = (newItem) => {
