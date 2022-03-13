@@ -1,8 +1,9 @@
 import React from 'react'
-import { withStorageListener } from './HOC_withStorageListener';
+import { useStorageListener } from './useStorageListener';
 import './ChangeAlert.css';
 
-function ChangeAlert({ show, refresh }) {
+function ChangeAlert({ storageName, recargarTodos }) {
+  const { show, refresh } = useStorageListener(storageName, recargarTodos);
   const [executeAnimation, setExecuteAnimation] = React.useState(false);
 
   if (show) {
@@ -23,8 +24,7 @@ function ChangeAlert({ show, refresh }) {
 
 
 }
-
-const ChangeAlertWithStorageListener = withStorageListener(ChangeAlert);
-
+//para evitar cambiar el nombre en el App/index.js
+const ChangeAlertWithStorageListener = ChangeAlert;
 
 export { ChangeAlertWithStorageListener };

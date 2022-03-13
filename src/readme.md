@@ -355,6 +355,12 @@ haces un buen uso de HOC si:
 
 si no haces nada de lo malo y tenes todo de lo bueno, entonces las HOC valen la pena, en caso contrario, convendria utilizar customHooks.
 
+### Cambiar HOC a CustomHook
+
+en la rama _cambiar-HOC-a-customHook_ se puede ver como se puede cambiar un HOC a un customHook.
+la forma es bastante facil, hay que eliminar el retorno de la funcion, y retornar como objeto o lista aquellas propiedades
+que se le iban a inyectar al componente.
+
 ### links
 
 Principios en los que se basa el desarrollo de React
