@@ -180,6 +180,8 @@ functionReturnedTwo(2); //14
 
 ### High Order Component
 
+_Los HOC son utilices para usar con tareas que son trasversales._
+_Deberian ser funciones puras, sin efectos secundarios_
 ahora que entendemos las HOF, los HOC son muy similares, la diferencia es que la funcion que se retorna tiene que ser un componente de React.
 
 ejemplo sencillo:
@@ -233,6 +235,125 @@ el archivo donde ocurre esto es **HOC_withStorageListener** y el que lo usa es *
 
 abajo se puede ver el resultado final:
 ![Alt resultado](./readme/sincronizar.gif)
+
+### **Ventajas** y desventajas de
+
+- Render Props
+- HOCs
+- Custom Hooks
+
+criterio: **Maquetacion** y **Compartir logica entre componentes**
+
+### **Maquetacion**
+
+**Render Props/function** VS **React hooks**
+
+las render props hacen la maquetacion mas elegante pero tambien bajan la cantidad de codigo aburrido, (preferible sobre el elegante).
+React hooks en cambio es codigo aburrido, codigo reemplazable.
+
+sin embargo los React hooks dejan a los componentes estructuralmente importantes mejor maquetados.
+
+### **Compartir informacion**
+
+aqui **compiten** los 3 metodos.
+
+las **render functions** nos permiten entregarle al componente funciones que recorren los datos que hay que pasar e inyectarle props antes de que lo vea el componente.
+
+pero si el componente require mucha informacion las render functions terminan haicendo el codigo bastante largo y lleno de funciones con parametros y loops. Haciendo que el codigo se vaya apilando horizontalmente hacia al derecha de la cantidad de funciones.
+
+```js
+<Componente
+  {
+    prop1 => {
+      <Componente2
+        {
+          prop2 => {
+            <Componente3>
+            {
+              prop3 =>{
+                {/*etc...*/}
+              }
+            }
+            </Componente3>
+          }
+        }
+      >
+      </Componente2>
+    }
+  }
+>
+</>
+```
+
+los **HOC** en el caso de que un componente requiera utilizar muchos HOC el codigo resultante se veria:
+
+```js
+const TodoBoxWithEeverything = withAPI(
+  withDarkMode(
+    withDisposable(withLogProps(withLogState(withLogUnmounted(TodoBox))))
+  )
+);
+```
+
+**Los React Hooks**
+para usarlo desestructuramos los estados y cambios de estado que nos dan, y los usamos. Es bastante facil.
+¿pero que ocurre cuando tenemos que usar muchos?
+
+```js
+const [state1, setState1] = useState1();
+const [state2, setState2] = useState2();
+const [state3, setState3] = useState3();
+const [state4, setState4] = useState4();
+const [state5, setState5] = useState5();
+
+return(
+  <Componente1 state={state1} set={setState5}/>
+  <Componente2 state={state2} set={setState4}/>
+  <Componente3 state={state3} set={setState3}/>
+  <Componente4 state={state4} set={setState2}/>
+  <Componente5 state={state5} set={setState1}/>
+)
+```
+
+Como se puede ver el codigo no se va a la derecha, se mantiene constante horizontalmente, y es vertical lo que lo hace mas facil de leer.
+
+Ahora bien en cuanto a las **HOC** como estan basadas en las HOF existe una funcion llamda **compose** que facilita la lectura del codigo. Que existen en varias librerias, o se puede implementar por cuenta propia, usando dicha funcion el codigo se puede ver tal que asi:
+
+```js
+const TodoBoxWithEeverything = compose(
+  withAPI,
+  withDarkMode,
+  withDisposable,
+  withLogProps,
+  withLogState,
+  withLogUnmounted
+)(TodoBox);
+```
+
+por lo que en los resultados el rankin para compartir informacion seria
+
+1. customHooks
+2. HOC
+3. renderProps/function
+
+https://medium.com/javascript-scene/do-react-hooks-replace-higher-order-components-hocs-7ae4a08b7b58
+
+El resumen del link habla sobre cuando es conveniente usar HOC y cuando es mejor usar customHooks.
+
+haces un mal uso de HOC si:
+
+- se requiere añadir muchas props al componente
+- el comportamiento es usado en solo un componente
+- el comportamiento requiere ser customizado para cada componente que lo usa
+
+haces un buen uso de HOC si:
+
+- el comportamiento no es especifico de un componente, sino que aplica a muchos.
+- el comportamiento no requiere de props.
+- el componente que lo usa puede usarse sin envolverse en el HOC
+- no se requiere customizar el comportamiento para cada componente.
+
+si no haces nada de lo malo y tenes todo de lo bueno, entonces las HOC valen la pena, en caso contrario, convendria utilizar customHooks.
 
 ### links
 
