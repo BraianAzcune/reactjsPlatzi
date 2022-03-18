@@ -5,7 +5,15 @@ export class ClassState extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: true,
+      error: false,
+      loading: false,
+    }
+  }
+  componentDidUpdate() {
+    if (this.state.loading) {
+      setTimeout(() => {
+        this.setState((state, _props) => ({ loading: false, error: true }));
+      }, 2000);
     }
   }
   render() {
@@ -16,11 +24,14 @@ export class ClassState extends React.Component {
         {
           this.state.error && <p>Error en el codigo de seguridad</p>
         }
+        {
+          this.state.loading && <p>Cargando...</p>
+        }
         <p>Por favor escribe el codigo de seguridad</p>
         <input placeholder='Codigo de seguridad'></input>
         <button
           // la actualizacion de estado y props es asincrona, por lo que usar this dentro es peligroso
-          onClick={() => { this.setState((state, _props) => ({ error: !state.error })) }}
+          onClick={() => { this.setState((state, _props) => ({ error: false, loading: true })) }}
         >Comprobar</button>
       </div>
     );

@@ -64,3 +64,83 @@ class ClassState extends React.Component {
   }
 }
 ```
+
+# CLASE 4-5 - efectos con use effect. Y ciclos de vida con Class.
+
+los efectos se ejecutan cuando el array de dependencias cambia, o cada vez que el componente se vuelve a renderizar si no hay array definido.
+tal cual como se aprendio en el primer curso.
+
+El analogo a esto en los componentes con Classes son el metodo del ciclo de vida.
+
+nuestro objetivo es imitar el mismo comportamiento de UseState con el estado loading.
+queremos que se ejecute solamente cuando se aprete el boton y no este en loading true, y que despues de un tiempo se vuelva a poner en falso.
+
+<table>
+<tr>
+<th>UseState</th>
+<th>ClassState</th>
+</tr>
+<tr>
+<td>
+
+```js
+export function UseState({ name }) {
+  const [loading, setLoading] = React.useState(false);
+  React.useEffect(() => {
+    if (loading) {
+      setTimeout(() => {
+        setLoading(false);
+      }, 2000);
+    }
+  }, [loading]);
+  return (
+    <div>
+      {loading && <p>Cargando...</p>}
+      <button
+        onClick={() => {
+          setLoading(true);
+        }}>
+        Comprobar
+      </button>
+    </div>
+  );
+}
+```
+
+</td>
+<td>
+
+```js
+export class ClassState extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loading: false,
+    };
+  }
+  componentDidUpdate() {
+    if (this.state.loading) {
+      setTimeout(() => {
+        this.setState((state, _props) => ({ loading: false }));
+      }, 2000);
+    }
+  }
+  render() {
+    return (
+      <div>
+        {this.state.loading && <p>Cargando...</p>}
+        <button
+          onClick={() => {
+            this.setState((state, _props) => ({ loading: true }));
+          }}>
+          Comprobar
+        </button>
+      </div>
+    );
+  }
+}
+```
+
+</td>
+</tr>
+</table>
