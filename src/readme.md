@@ -144,3 +144,23 @@ export class ClassState extends React.Component {
 </td>
 </tr>
 </table>
+
+# CLASE 9 - manejar un estado compuesto como en las clases pero en hooks.
+
+En las clases de React todo el estado vive en un objeto, y existe una funcion para actualizarlo parcialmente.
+esto mismo se puede imitar con los react hooks, esta manera de manejar el estado puede ser util cuando los valores estan estrechamente relacionados.
+
+```js
+//imitamos el funcionamiento de un React.Component
+const [state, setState] = React.useState({
+  error: false,
+  loading: false,
+  value: "",
+});
+```
+
+asi se declara, y cuando se quiere actualizar hay que enviar el nuevo objeto, pero desestructurando el state, porque sino lo que se envia seria un nuevo objeto con las propiedades mencionadas.
+
+```js
+setState({ ...state, loading: true });
+```
