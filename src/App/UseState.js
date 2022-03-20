@@ -1,17 +1,18 @@
 import React from 'react'
 
+const SECURITY_CODE = 'asd';
 
 export function UseState({ name }) {
+  const [value, setValue] = React.useState('');
   const [error, setError] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
     if (loading) {
-
       setTimeout(() => {
         setLoading(false);
-        setError(true);
-      }, 2000);
+        value === SECURITY_CODE ? setError(false) : setError(true);
+      }, 1000);
     }
   }, [loading]);
 
@@ -20,15 +21,20 @@ export function UseState({ name }) {
       <h2>Eliminar UseState</h2>
       <p>{name}</p>
       {
-        error && <p>Error en el codigo de seguridad</p>
+        (error && !loading) && <p>Error en el codigo de seguridad</p>
       }
       {
         loading && <p>Cargando...</p>
       }
       <p>Por favor escribe el codigo de seguridad</p>
-      <input placeholder='Codigo de seguridad'></input>
+      <input
+        value={value}
+        onChange={(event) => {
+          setValue(event.target.value);
+        }} placeholder='Codigo de seguridad'></input>
       <button
-        onClick={() => { setLoading(true); setError(false); }}
+        disabled={loading}
+        onClick={() => { setLoading(true) }}
       >Comprobar</button>
     </div>
   );
