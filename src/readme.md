@@ -164,3 +164,92 @@ asi se declara, y cuando se quiere actualizar hay que enviar el nuevo objeto, pe
 ```js
 setState({ ...state, loading: true });
 ```
+
+# clase 12 - useReducer y reducer
+
+¿que es un reducer?
+
+el reducer es una funcion que toma un estado y una accion, y devuelve un nuevo estado.
+nos permite manejar el estado de una forma mas declarativa.
+
+ahora ya no esta el setState dentro del codigo de eventos como en el ejemplo anterior, sino que se usa un reducer.
+que entrega una variable estado y un dispatch para disparar acciones.
+
+Para eso tenemos que crear una funcion reducer, que recibe el estado y la accion. y debe retornar un objeto que es el nuevo estado.
+
+creando un reducer:
+
+```js
+const [state, dispatch] = React.useReducer(reducer, initialState);
+```
+
+el initialState y el reducer:
+
+```js
+const initialState = {
+  error: false,
+  loading: false,
+  value: '',
+  deleted: false,
+  confirmed: false
+};
+
+const reducer = (state, action) => {
+
+  if (action.type === 'write') {
+    return {
+      ...state,
+      value: action.payload
+    }
+  }
+
+  if (action.type === 'error') {
+    return {
+      ...state,
+      error: true,
+      loading: false
+    }
+  }
+  /*...*/
+```
+
+utilizar esto, hace mas legible y declarativo al codigo, ya que para realizar un cambio lo unico que hay que hacer es
+
+```js
+dispatch({ type: "loading" });
+```
+
+el problema es que cometer un typo en el dispatch, no hara nada, haciendo que sea dificil encontrar el error.
+Para eso es comun crear un objeto llamdo actionType que contenga todos los tipos de acciones que se pueden disparar. y Utilizar eso den vez de enviar un string.
+
+Otra cosa que sirve es abstraer el comando dispatch, mientras mas compleja sea nuestra aplicacion un dispatch tendra varios side effects.
+
+la estructura que se suele manejar en redux
+https://read.reduxbook.com/markdown/part1/04-action-creators.html
+consiste en tener funciones que devuelven el objeto que hay que pasarle al dispatch, y luego una funcion que ejecuta el dispatch y puede realizar otras cosas relacionadas.
+si se utiliza Redux esta ultima funcion no es necesario crearla ya que existen metodos que la generan se llaman **bindActionCreators**
+
+```js
+//esta funcion devulve el objeto que hay que pasarle a dispatch
+const confirmar = () => ({ type: "confirm" });
+// esta funcion llama a dispatch y puede realizar otras side effects
+const boundConfirmar() = dispatch(confirmar());
+//luego en el codigo se utiliza asi:
+<button onClick={boundBorrar}>Si</button>
+```
+
+como se puede ver esta forma de hacerlo es mas declarativa y facil de mantener.
+en situaciones donde la api es pequeña boundConfirmar y cofirmar podrian ser una sola funcion.
+y como se dijo antes Redux ya tiene el boundActionCreators que nos permite ahorrarnos crear la funcion.
+
+```JS
+const boundAddToDoItem = bindActionCreators(doAddToDoItem, store.dispatch)
+const boundToDoActions = bindActionCreators(
+  {
+    add: doAddToDoItem,
+    remove: doRemoveToDoItem,
+    clear: doClearToDos
+  },
+  store.dispatch
+)
+```
