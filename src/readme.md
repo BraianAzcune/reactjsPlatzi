@@ -24,3 +24,19 @@ useEffect cambia completamente la forma de pensamiento de la programacion de cla
 En la programacion de clases, se pensaba en el ciclo de vida del componente para realizar actualizaciones.
 
 con useEffect la cosa queda mas facil, aca pensamos en efectos que hay que aplicar cuando cambian los estados o props.
+
+# CLASE 5 - useContext
+
+En el ejercicio anterior de activar el darkmode, teniamos la logica en el componente header, pero el que necesitaba de ella era el componente App, por lo que se movio la logica a App, y Header se convirtio en un componente stateless.
+Ahora si tenemos mas componentes que tienen que variar segun el darkMode, como por ejemplo Characters.jsx, entonces App tendria que pasarle lo mismo que le pasa a Header, y esto se puede repetir en todos los componentes y sus hijos.
+
+Para estas situaciones es util usar el hook useContext() que nos permite compartir facilmente estos estados "globales".
+
+Para esto hay que hacer 3 cosas, crear el archivo del contexto, que puede tener un valor por defecto util para test aislados.
+
+Agregar al componente padre el provider. que le permitira a sus hijos acceder a esas variables sin que se las pase el padre, usualmente se elige a index.js como el padre donde poner el Provider, este provider espera recibir una prop value, que es el valor que son los valores que le compartira a sus hijos, este valor a compartir deberia ser un estado de React, ya que objetos crudos, causarian un problema de rendimiento al re-renderizar todos los hijos cada vez que se renderiza el padre ya que Context determina la Identidad por referencia.
+
+y finalmente el componente hijo que quiera usar el contexto tiene que importar el Hook useContext() y el contexto, pasarle el contexto como parametro al useContext y eso le permite acceder a las variables.
+
+En el codigo se puede ver como App.jsx agrega al return el Provider que obtiene del context.js y pasa como value su estado darkMode,
+luego es consumido por Characters.jsx, a traves de useContext() y el contexto de context.js, para obtener el darkMode, y voltear las tarjetas dependiendo el modo en el que se esta.

@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 import './Characters.css';
 
 export default function Characters() {
 
+  const darkMode = useContext(ThemeContext);
   const [characters, setCharacters] = useState([]);
 
   useEffect(() => {
@@ -18,7 +20,7 @@ export default function Characters() {
         {
           characters.map(ch =>
           (
-            <div className="character" key={ch.id}>
+            <div className={darkMode ? 'character character-darkmode' : 'character'} key={ch.id}>
               <h2>{ch.name}</h2>
               <img src={ch.image} alt={ch.name} />
             </div>

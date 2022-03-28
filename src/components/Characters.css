@@ -16,4 +16,31 @@
   height: 200px;
   border-style: solid;
   border-color: rgb(20, 35, 100);
+  transform-style: preserve-3d;
+  position: relative;
+  animation: flip 0.5s ease-in-out forwards;
+}
+
+@keyframes flip {
+  from {
+    transform: rotateY(180deg);
+  }
+  to {
+    transform: rotateY(0deg);
+  }
+}
+
+.character-darkmode img {
+  transform-style: preserve-3d;
+  position: relative;
+  animation: flip2 0.5s ease-in-out forwards;
+}
+
+@keyframes flip2 {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(180deg);
+  }
 }
