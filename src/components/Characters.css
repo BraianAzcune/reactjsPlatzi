@@ -44,3 +44,30 @@
     transform: rotateY(180deg);
   }
 }
+
+.character button {
+  width: 205px;
+  height: 25px;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(20, 35, 100);
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.character button:hover {
+  background-color: rgb(49, 71, 168);
+}
+
+.character button:active {
+  background-color: rgb(55, 180, 211);
+}
+
+.character h2 {
+  width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

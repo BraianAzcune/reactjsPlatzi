@@ -40,3 +40,17 @@ y finalmente el componente hijo que quiera usar el contexto tiene que importar e
 
 En el codigo se puede ver como App.jsx agrega al return el Provider que obtiene del context.js y pasa como value su estado darkMode,
 luego es consumido por Characters.jsx, a traves de useContext() y el contexto de context.js, para obtener el darkMode, y voltear las tarjetas dependiendo el modo en el que se esta.
+
+# CLASE 6 - useReducer
+
+Similar a Redux pero nativo, nos permite manejar el estado de forma mas amigable.
+
+Las parte importantes son:
+
+- un conjunto de estados.
+- una funcion reducer que dice que a que estado hay que cambiar.
+- la funcion useReducer que nos entrega la funcion dispatch para causar el cambio de estado.
+
+opcionalmente y para que el codigo sea mas limpio se suele crear funciones que tienen la orden dispatch.
+
+asi en el codigo den vez de verse que un boton hace un dispatch con parametros, simplemente se ve que el boton tiene la referencia a una funcion addFavorite. Mucho mas legible y reutilizable.
