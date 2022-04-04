@@ -54,3 +54,23 @@ Las parte importantes son:
 opcionalmente y para que el codigo sea mas limpio se suele crear funciones que tienen la orden dispatch.
 
 asi en el codigo den vez de verse que un boton hace un dispatch con parametros, simplemente se ve que el boton tiene la referencia a una funcion addFavorite. Mucho mas legible y reutilizable.
+
+# CLASE 7 - useMemo
+
+esta funcion nos permite memoizar el resultado de funciones puras. Muy util cuando es costoso la ejecucion de la funcion.
+
+La misma requiere que se le pase una funcion con la funcion a ejecutar, y un arreglo de variables a observar. La funcion memoizada solo se ejecuta cuando alguna de las variables cambia.
+
+```js
+const memoizedValue = useMemo(() => {
+  // expensive computation
+}, [props.a, props.b, state1, state2]);
+```
+
+Esta funcion se ejcuta en cada renderizado.
+
+ADVERTENCIA: useMemo puede olvidar, el codigo deberia funcionar bien sin este, y usarlo unicamente para mejorar el rendimiento.
+
+ejemplo practico en Characters.jsx con el search. (no tan buen ejemplo)
+
+https://www.youtube.com/watch?v=BPB1W_rg3LQ&ab_channel=EWebik

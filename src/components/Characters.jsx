@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useReducer } from "react";
+import { useEffect, useState, useContext, useReducer, useMemo } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import './Characters.css';
 
@@ -35,6 +35,25 @@ export default function Characters() {
   const [characters, setCharacters] = useState([]);
   const [favorites, dispatch] = useReducer(reducer, initialState);
 
+  const [search, setSearch] = useState("");
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  }
+  //esto funciona bien sin memo
+  // const filteredCharacters = characters.filter(character => {
+  //   console.log('executed filter');
+  //   return character.name.toLowerCase().includes(search.toLowerCase());
+  // });
+  function filteredCharacters() {
+    console.log('executed filter');
+    return characters.filter(character => {
+      return character.name.toLowerCase().includes(search.toLowerCase());
+    });
+  }
+  const filteredCharactersMemo = useMemo(() => filteredCharacters(), [characters, search]);
+
+
+
   function AmIInFavorite(id) {
     return favorites.favorite.some(favorite => favorite.id === id);
   }
@@ -66,13 +85,19 @@ export default function Characters() {
       .then(data => { setCharacters(data.results); })
   }, []);
 
+  console.log('re render characters');
+
   return (
     <>
+      <div className="search">
+        <input placeholder="search here" type="text" value={search} onChange={handleSearch} />
+      </div>
       <h1>Characters:</h1>
       <div className="Characters">
 
+
         {
-          characters.map(ch =>
+          filteredCharactersMemo.map(ch =>
           (
             <div className={darkMode ? 'character character-darkmode' : 'character'} key={ch.id}>
               <h2>{ch.name}</h2>
