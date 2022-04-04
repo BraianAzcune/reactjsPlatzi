@@ -108,3 +108,44 @@ function Formulario() {
 
 como se recibiria esto? en Nestjs con este plugin asi:
 https://www.npmjs.com/package/nestjs-form-data
+
+# CLASE 10 - useCallback
+
+Como se sabe en React cada funcion que es creada dentro de un componente es Re-creada cuando se re-renderiza el componente. Esto por lo general no es un problema, pero si lo fuera a ser, o se requeriria pasar a otros componentes la funcion y este depende de la igualdad de referencias entonces es buen momento de aplicar useCallback.
+
+useCallback recibe la funcion a memoizar y un arreglo de dependencias, cuando algunas de las depenencias cambie la funcion sera re-creada.
+
+se suele utilizar dentro de los customHooks, cuando se devuelve una funcion para que el mismo pueda ser aplicados como dependencias de otros hooks sin que haya problemas de referencias.
+
+```js
+//customHook
+function useCount(initialValue = 0) {
+  const [count, setCount] = useState(initialValue);
+
+  const increment = useCallback(
+    function () {
+      setCount((count) => count + 1);
+    },
+    [setCount]
+  );
+
+  return [count, increment];
+}
+//su uso dentreo de otro componente
+useEffect(
+  function () {
+    // something
+    console.log(otherDep);
+    increment();
+  },
+  [increment, otherDep]
+);
+```
+
+explicacion de todo eso:
+https://latteandcode.medium.com/el-hook-usecallback-y-react-memo-87f761733c35
+
+Deberia usar useCallback y useMemo siempre?
+https://www.youtube.com/watch?v=duh3uKn0qnU&ab_channel=midulive
+
+tl;dr: muy parecido a lo expuesto arriba para el customHook, pero en este caso un padre pasando una funcion que crea a su hijo, y el hijo tiene un useEffect que depende de la funcion que se creo en el padre. Esto hara que se ejecute siempre. (problema!)
