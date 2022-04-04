@@ -149,3 +149,5 @@ Deberia usar useCallback y useMemo siempre?
 https://www.youtube.com/watch?v=duh3uKn0qnU&ab_channel=midulive
 
 tl;dr: muy parecido a lo expuesto arriba para el customHook, pero en este caso un padre pasando una funcion que crea a su hijo, y el hijo tiene un useEffect que depende de la funcion que se creo en el padre. Esto hara que se ejecute siempre. (problema!)
+
+Pero no de rendimiento, si lo que quiere decir ese useEffect es "cuando me mandes una funcion con una logica diferente me ejecuto", entonces ahi si hay que aplicar useCallback, porque sino es llamado siempre.
