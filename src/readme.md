@@ -74,3 +74,37 @@ ADVERTENCIA: useMemo puede olvidar, el codigo deberia funcionar bien sin este, y
 ejemplo practico en Characters.jsx con el search. (no tan buen ejemplo)
 
 https://www.youtube.com/watch?v=BPB1W_rg3LQ&ab_channel=EWebik
+
+# CLASE 8 - useRef
+
+useRef nos permite obtener una referencia mutable a un elemento del DOM.
+util para modificar el estado, usualmente en React esto se logra obligando un nuevo render cambiando un estado o prop.
+
+Sin embargo al utilizar esta forma no obligamos un re-render.
+
+ejemplo sobre su capacidad de evitar los closures en state:
+https://latteandcode.medium.com/react-el-hook-useref-6e20f026d5b
+
+tambien es usado para los formularios, un formulario suele tener muchos inputs tener un state para cada uno es molesto, se puede crear una referencia para el formulario nomas.
+
+```js
+function Formulario() {
+  const formRef = useRef(null);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = new FormData(formRef.current);
+    //formRef.current.submit(); // o un fetch post, para hacerlo asincrono
+    console.log(form.get("email"));
+  };
+  return (
+    <form ref={formRef} onSubmit={handleSubmit}>
+      <input type="text" name="name" placeholder="your name" />
+      <input type="text" name="email" placeholder="your email" />
+      <input type="submit" value="Submit" />
+    </form>
+  );
+}
+```
+
+como se recibiria esto? en Nestjs con este plugin asi:
+https://www.npmjs.com/package/nestjs-form-data

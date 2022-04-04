@@ -25,6 +25,7 @@ https://reactflow.dev/
 
 facilitar la creacion de formularios
 https://openbase.com/js/formik/alternatives
+https://react-hook-form.com/
 
 componente para escribir texto que soporta grandes cantidades y formatos
 https://openbase.com/js/react-codemirror2

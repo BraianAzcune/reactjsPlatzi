@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext, useReducer, useMemo } from "react";
+import { useEffect, useState, useContext, useReducer, useMemo, useRef } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import './Characters.css';
 
@@ -35,9 +35,11 @@ export default function Characters() {
   const [characters, setCharacters] = useState([]);
   const [favorites, dispatch] = useReducer(reducer, initialState);
 
+  const searchInput = useRef(null);
+
   const [search, setSearch] = useState("");
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
+  const handleSearch = () => {
+    setSearch(searchInput.current.value);
   }
   //esto funciona bien sin memo
   // const filteredCharacters = characters.filter(character => {
@@ -90,7 +92,7 @@ export default function Characters() {
   return (
     <>
       <div className="search">
-        <input placeholder="search here" type="text" value={search} onChange={handleSearch} />
+        <input placeholder="search here" type="text" value={search} onChange={handleSearch} ref={searchInput} />
       </div>
       <h1>Characters:</h1>
       <div className="Characters">
