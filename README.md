@@ -9,6 +9,12 @@ dentro de las carpetas de cursos hay readme.md con lo aprendido
 te permite revisar alternativa de librerias
 https://openbase.com/
 
+### custom hooks
+
+https://github.com/streamich/react-use
+
+https://usehooks.com/
+
 #### Librerias visuales
 
 libreria llena de componentes UI listos para usar con estilo material design.

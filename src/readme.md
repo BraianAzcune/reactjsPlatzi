@@ -24,6 +24,7 @@ useEffect cambia completamente la forma de pensamiento de la programacion de cla
 En la programacion de clases, se pensaba en el ciclo de vida del componente para realizar actualizaciones.
 
 con useEffect la cosa queda mas facil, aca pensamos en efectos que hay que aplicar cuando cambian los estados o props.
+siempre se ejecutara 1 vez, que es cuando se monta el componente.
 
 # CLASE 5 - useContext
 
@@ -177,3 +178,9 @@ function areEqual(prevProps, nextProps) {
 }
 export default React.memo(MyComponent, areEqual);
 ```
+
+# CLASE 12 - customHooks
+
+Los customHooks nos permite crear nuestros propios hooks, estos son una funcion, que puede utilizar intermanmente los hooks de React.
+
+Antes de crear alguno conviene revisar los de la comunidad, ya que hay una cantidad masiva ya creada y testeada.

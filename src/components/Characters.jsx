@@ -1,8 +1,8 @@
-import { useEffect, useState, useContext, useReducer, useMemo, useRef, useCallback } from "react";
+import { useState, useContext, useReducer, useMemo, useRef, useCallback } from "react";
 import { ThemeContext } from "../context/ThemeContext";
-import { Search } from './Search';
+import Search from './Search';
 import './Characters.css';
-
+import useCharacters from "../hooks/useCharacters";
 const initialState = {
   favorite: [],
 }
@@ -33,7 +33,7 @@ function reducer(state, action) {
 export default function Characters() {
 
   const darkMode = useContext(ThemeContext);
-  const [characters, setCharacters] = useState([]);
+  const characters = useCharacters("https://rickandmortyapi.com/api/character/");
   const [favorites, dispatch] = useReducer(reducer, initialState);
 
   const searchInput = useRef(null);
@@ -86,10 +86,10 @@ export default function Characters() {
     }
   }
 
-  useEffect(() => {
-    fetch("https://rickandmortyapi.com/api/character/").then(res => res.json())
-      .then(data => { setCharacters(data.results); })
-  }, []);
+  // useEffect(() => {
+  //   fetch("https://rickandmortyapi.com/api/character/").then(res => res.json())
+  //     .then(data => { setCharacters(data.results); })
+  // }, []);
 
   console.log('re render characters');
 
