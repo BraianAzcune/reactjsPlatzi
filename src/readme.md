@@ -151,3 +151,29 @@ https://www.youtube.com/watch?v=duh3uKn0qnU&ab_channel=midulive
 tl;dr: muy parecido a lo expuesto arriba para el customHook, pero en este caso un padre pasando una funcion que crea a su hijo, y el hijo tiene un useEffect que depende de la funcion que se creo en el padre. Esto hara que se ejecute siempre. (problema!)
 
 Pero no de rendimiento, si lo que quiere decir ese useEffect es "cuando me mandes una funcion con una logica diferente me ejecuto", entonces ahi si hay que aplicar useCallback, porque sino es llamado siempre.
+
+# CLASE 11 - React.memo
+
+https://es.reactjs.org/docs/react-api.html#reactmemo
+
+En react como bien sabemos cada nuevo render re crea todas las funciones y variables dentro de la funcion,causando que se "perciba" un cambio de propiedades a los hijos que tenga ese componente. Haciendo que el hijo se re-ejecute, luego al momento del render, React se daria cuenta que el componente hijo esta igual, por lo que no se renderizara (afectar al DOM). Pero ya se re-ejecuto...
+
+https://www.youtube.com/watch?v=Wo7_OVtu1ls&ab_channel=midudev
+
+React.memo viene a proveer una solucion de rendimiento, su uso deberia quedar reservado cuando hay problemas de rendimiento, y ademas nuestro componente es un componenete "puro" osea de presentacion, solo recibe props y renderiza.
+
+React.memo es una HOC "high order component" que recibe un componente funcional y opcionalmente una funcion de comparacion (que retorna false para causar un re-render).
+
+```js
+function MyComponent(props) {
+  /* renderiza usando props */
+}
+function areEqual(prevProps, nextProps) {
+  /*
+  retorna true si al pasar los nextProps a renderizar retorna
+  el mismo resultado que al pasar los prevProps a renderizar,
+  de otro modo retorna false
+  */
+}
+export default React.memo(MyComponent, areEqual);
+```
