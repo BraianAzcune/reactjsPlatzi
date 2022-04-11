@@ -184,3 +184,8 @@ export default React.memo(MyComponent, areEqual);
 Los customHooks nos permite crear nuestros propios hooks, estos son una funcion, que puede utilizar intermanmente los hooks de React.
 
 Antes de crear alguno conviene revisar los de la comunidad, ya que hay una cantidad masiva ya creada y testeada.
+
+# QUE SIGUE?
+
+a partir de aca se empieza el proyecto del curso llamado platzi-conf-merch
+eso esta en otro repositorio.

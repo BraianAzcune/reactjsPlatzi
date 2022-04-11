@@ -4,7 +4,13 @@ aca guardo el codigo con los readme.md con lo aprendido en los cursos de reactjs
 
 dentro de las carpetas de cursos hay readme.md con lo aprendido
 
-### plugins y cosas que estan buenas añadir a un proyecto react:
+# cursos
+
+paginacion y scroll infinito con React-query.
+
+https://blog.logrocket.com/pagination-infinite-scroll-react-query-v3/
+
+# plugins y cosas que estan buenas añadir a un proyecto react:
 
 te permite revisar alternativa de librerias
 https://openbase.com/
