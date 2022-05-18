@@ -42,6 +42,19 @@ y finalmente el componente hijo que quiera usar el contexto tiene que importar e
 En el codigo se puede ver como App.jsx agrega al return el Provider que obtiene del context.js y pasa como value su estado darkMode,
 luego es consumido por Characters.jsx, a traves de useContext() y el contexto de context.js, para obtener el darkMode, y voltear las tarjetas dependiendo el modo en el que se esta.
 
+## IMPORTANTE useContext re render
+
+useContext esta pensado para aquellas cosas que cambian poco, y necesitan ser usado por casi todos los componentes, algo como por ejemplo "modo oscuro","idioma", "usuario", "fecha", cosas que cambien poco y sean muy usadas.
+
+cada vez que se modifique el estado del contexto, alli donde este el componente Context.Provider, lanzara una re renderizacion a todos los componentes que contengan.
+En este caso como esta en App, obliga a renderizar a todos los componentes.
+
+Por lo que el uso que se le esta haciendo no seria el adecuado.
+
+Para esto seria mas adecuado usar algo como Redux.
+
+<table><tbody><tr><td><p style="text-align:center"><strong>useContext&nbsp;</strong></p></td><td><p style="text-align:center"><strong>Redux</strong></p></td></tr><tr><td>useContext is a hook.</td><td>Redux is a state management library.</td></tr><tr><td>It is used to share data.</td><td>It is used to manage data and state.</td></tr><tr><td>Changes are made with the Context value.</td><td>Changes are made with pure functions i.e. reducers.</td></tr><tr><td>We can change the state in it.</td><td>The state is read-only. We cannot change them directly.</td></tr><tr><td>It re-renders all components whenever there is any update in the provider’s value prop.</td><td>It only re-render the updated components.</td></tr><tr><td>It is better to use with small applications.</td><td>It is perfect for larger applications.&nbsp;</td></tr><tr><td>It is easy to understand and requires less code.</td><td>It is quite complex to understand.</td></tr></tbody></table>
+
 # CLASE 6 - useReducer
 
 Similar a Redux pero nativo, nos permite manejar el estado de forma mas amigable.
